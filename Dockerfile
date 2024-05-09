@@ -1,11 +1,4 @@
-FROM python:3.6
-
-RUN pip install flask
-
-COPY . /opt/
-
+FROM httpd:latest
+COPY . /usr/local/apache2/htdocs/
 EXPOSE 8080
-
-WORKDIR /opt
-
-ENTRYPOINT ["python", "app.py"]
+CMD ["httpd-foreground"]
