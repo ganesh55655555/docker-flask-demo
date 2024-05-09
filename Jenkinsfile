@@ -17,7 +17,7 @@ pipeline {
         }
         stage('push image') {
             steps{
-                sh 'docker push dockerhub_id/httpdapp:$BUILD_NUMBER'
+                sh 'docker push ganeshkumar083/httpdapp:$BUILD_NUMBER'
             }
         }
 }
