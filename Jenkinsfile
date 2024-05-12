@@ -21,9 +21,7 @@ pipeline {
         stage('Send Email Notification') {
             steps {
                 script {
-                    emailext body: 'NGINX Docker container deployed successfully!',
-                             subject: 'Deployment Status',
-                             to: 'uganesh43@gmail.com'
+                    emailext body: 'emailext body: 'EMAIL FROM JENKINS', subject: '"YOUR PIPELINE HAS BUILD SUCCCESSFULLY"', to: 'uganesh43@gmail.com'
                 }
             }
         }
