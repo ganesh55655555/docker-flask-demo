@@ -13,7 +13,8 @@ pipeline {
         stage('Deploy Docker Container') {
             steps {
                 script {
-                    sh 'docker service create --name nginx-service --replicas 3 --publish published=80,target=80 --detach=false nginx:latest'
+                    sh 'docker swarm init --advertise-adddr 172.31.39.29'
+                    sh 'docker service create --name nginx-service --replicas 3  nginx:latest'
                 }
             }
         }
