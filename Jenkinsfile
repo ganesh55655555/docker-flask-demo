@@ -1,29 +1,29 @@
 pipeline {
-    agent any 
-    environment {
-    DOCKERHUB_CREDENTIALS = credentials('dockerhub_id')
-    }
-    stages { 
+    agent any
 
-        stage('Build docker image') {
-            steps {  
-                sh 'docker build -t ganeshkumar083/httpdapp:$BUILD_NUMBER .'
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    docker.build("nginx:latest", ".)
+                }
             }
         }
-        stage('login to dockerhub') {
-            steps{
-                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+
+        stage('Deploy Docker Container') {
+            steps {
+                script {
+                        sh ' docker service create --name nginx-service --replicas 3 --publish published=80,target=80 --detach=false nginx:latest'
+                    }
+                }
             }
         }
-        stage('push image') {
-            steps{
-                sh 'docker push ganeshkumar083/httpdapp:$BUILD_NUMBER'
+
+        stage('Send Email Notification') {
+            steps {
+                emailext body: 'NGINX Docker container deployed successfully!',
+                         subject: 'Deployment Status',
+                         to: 'uganesh43@gmail.com'
             }
-        }
-}
-post {
-        always {
-            sh 'docker logout'
         }
     }
 }
