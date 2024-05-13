@@ -13,7 +13,7 @@ pipeline {
         stage('Deploy Docker Container') {
             steps {
                 script {
-                    sh 'docker service create --name nginx-service --replicas 3  nginx:latest'
+                    sh 'docker service create --name nginx-service$BUILD_NUMBER --replicas 3  nginx:latest'
                 }
             }
         }
