@@ -18,9 +18,9 @@ pipeline {
             }
         }
 
-        stage('Send Email Notification') {
-            steps {
-                script {
+        
+            post  {
+                success {
                     emailext body: 'FROM JENKINS', subject: 'YOUR JENKINS PIPELINE IS READY', to: 'uganesh43@gmail.com'
                 }
             }
