@@ -8,6 +8,21 @@
             }
         }
 
+ stages {
+        stage('Deploy New Version') {
+            steps {
+                script {
+                    // Deploy the new version of the Docker service
+                    sh 'docker service create --name nginx-service-new-$BUILD_NUMBER --replicas 3 nginx:latest'
+                }
+            }
+        }
+
+
+
+
+
+
 
 
   stage('Deploy Docker Container') {
