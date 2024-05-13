@@ -1,0 +1,22 @@
+   stages {
+        stage('Remove Older Docker Containers') {
+            steps {
+                script {
+                    // Remove any existing containers with the same service name
+                    sh 'docker service rm nginx-service || true'
+                }
+            }
+        }
+
+
+
+  stage('Deploy Docker Container') {
+            options {
+                timeout(time: 15, unit: 'MINUTES') // Timeout for this specific stage
+   }
+            steps {
+                script {
+                    sh 'docker service create --name nginx-service$BUILD_NUMBER --replicas 3 nginx:latest'
+                }
+            }
+        }
