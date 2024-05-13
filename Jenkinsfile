@@ -21,7 +21,7 @@ pipeline {
         stage('Send Email Notification') {
             steps {
                 script {
-                    emailext body: 'The Jenkins pipeline has completed SUCCESSFULLY', to: 'uganesh43@gmail.com'
+                    emailext body: 'FROM JENKINS', subject: 'YOUR JENKINS PIPELINE IS READY', to: 'uganesh43@gmail.com'
                 }
             }
         }
