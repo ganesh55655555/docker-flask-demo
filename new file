@@ -18,14 +18,7 @@
             }
         }
 
-
-
-
-
-
-
-
-  stage('Deploy Docker Container') {
+ stage('Deploy Docker Container') {
             options {
                 timeout(time: 15, unit: 'MINUTES') // Timeout for this specific stage
    }
