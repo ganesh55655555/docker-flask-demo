@@ -20,7 +20,7 @@ stage('Remove Older Docker Containers') {
          stage('Delploy new Docker Container') {
             steps {
                 script {
-                    
+                    sh 'docker service create --name nginx-service-new-$BUILD_NUMBER --replicas 3 nginx:latest'
                 }
             }
         }
