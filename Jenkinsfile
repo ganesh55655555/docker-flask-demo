@@ -25,7 +25,7 @@ pipeline {
         stage('Deploy New Docker Container') {
             steps {
                 script {
-                    sh 'docker service create --name nginx-service-new-$BUILD_NUMBER --replicas 3 nginx:latest'
+                    sh 'docker service create --name nginx-service-new-$BUILD_NUMBER --replicas 2 nginx:latest'
                 }
             }
         }
