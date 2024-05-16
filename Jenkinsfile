@@ -22,7 +22,7 @@ stage('Remove Older Docker Containers') {
                 script {
                     sh 'docker service create --name nginx-service-new-$BUILD_NUMBER --replicas 3 nginx:latest'
                       options {
-                timeout(time: 15, unit: 'MINUTES') // Timeout for this specific stage
+                timeout(time: 3, unit: 'MINUTES') // Timeout for this specific stage
    }
                 }
             }
