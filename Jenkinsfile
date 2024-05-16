@@ -13,7 +13,7 @@ pipeline {
 stage('Remove Older Docker Containers') {
             steps {
                 script {
-                    sh 'docker service rm nginx-service || true'
+                    sh 'docker service rm nginx:$BUILD_NUMBER|| true'
                 }
             }
         }
