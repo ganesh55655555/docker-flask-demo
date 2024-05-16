@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    options {
+        timeout(time: 3, unit: 'MINUTES') // Timeout for the entire pipeline run
+    }
+
     stages {
         stage('Build Docker Image') {
             steps {
@@ -10,20 +14,18 @@ pipeline {
             }
         }
 
-stage('Remove Older Docker Containers') {
+        stage('Remove Older Docker Containers') {
             steps {
                 script {
-                    sh 'docker service rm nginx:$BUILD_NUMBER|| true'
+                    sh 'docker service rm nginx:$BUILD_NUMBER || true'
                 }
             }
         }
-         stage('Delploy new Docker Container') {
+
+        stage('Deploy New Docker Container') {
             steps {
                 script {
                     sh 'docker service create --name nginx-service-new-$BUILD_NUMBER --replicas 3 nginx:latest'
-                      options {
-                timeout(time: 3, unit: 'MINUTES') // Timeout for this specific stage
-   }
                 }
             }
         }
