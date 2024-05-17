@@ -10,7 +10,7 @@ pipeline {
             steps {
                 script {
                     sh 'docker service rm nginx-service-new-* || true'
-                    sh 'docker rmi $(docker images -q nginx) || true'
+                    sh 'docker rmi $(docker images -q nginx -f) || true'
                 }
             }
         }
