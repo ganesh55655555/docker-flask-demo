@@ -37,7 +37,7 @@ pipeline {
             steps {
                 script {
                     def commitHash = env.COMMIT_HASH
-                    sh "docker service create --name nginx-service-new-${commitHash} --replicas 2 nginx:latest"
+                    sh "docker service create --name nginx-service-new-${commitHash} --replicas 1 nginx:latest"
                 }
             }
         }
