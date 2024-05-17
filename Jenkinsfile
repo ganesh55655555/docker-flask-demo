@@ -10,7 +10,7 @@ pipeline {
             steps {
                 script {
                     sh 'docker service rm nginx-service-new- || true'
-                  docker rmi $(docker images -q --filter "reference=nginx") || true
+                  sh 'docker rmi $(docker images -q --filter "reference=nginx") || true'
                 }
             }
         }
