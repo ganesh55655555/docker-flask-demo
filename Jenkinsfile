@@ -4,7 +4,16 @@ pipeline {
     options {
         timeout(time: 5, unit: 'MINUTES') // Timeout for the entire pipeline run
     }
-
+stages {
+        stage('Preparation') {
+            steps {
+                script {
+                    def commitHash = env.GIT_COMMIT.take(7)
+                    env.COMMIT_HASH = commitHash
+                }
+            }
+        }
+       
     stages {
         stage('Remove Existing Docker Containers and Images') {
             steps {
