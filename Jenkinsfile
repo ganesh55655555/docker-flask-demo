@@ -27,8 +27,8 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    def commitHash = env.GIT_COMMIT.take(7)
-                    sh "docker build -t nginx:$commitHash ."
+                    def commitHash = env.COMMIT_HASH
+                    sh "docker build -t nginx:${commitHash} ."
                 }
             }
         }
@@ -36,8 +36,8 @@ pipeline {
         stage('Deploy New Docker Container') {
             steps {
                 script {
-                    def commitHash = env.GIT_COMMIT.take(7)
-                    sh "docker service create --name nginx-service-new-$commitHash --replicas 2 nginx:latest"
+                    def commitHash = env.COMMIT_HASH
+                    sh "docker service create --name nginx-service-new-${commitHash} --replicas 2 nginx:latest"
                 }
             }
         }
