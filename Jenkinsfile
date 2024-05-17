@@ -2,30 +2,31 @@ pipeline {
     agent any
 
     options {
-        timeout(time: 5, unit: 'SECONDS') // Timeout for the entire pipeline run
+        timeout(time: 2, unit: 'MINUTES') // Timeout for the entire pipeline run
     }
 
     stages {
+        stage('Remove Existing Docker Containers and Images') {
+            steps {
+                script {
+                    sh 'docker service rm nginx:* || true'
+                    sh 'docker rmi $(docker images -q nginx) || true'
+                }
+            }
+        }
         stage('Build Docker Image') {
             steps {
                 script {
-                    sh 'docker build -t nginx:$BUILD_NUMBER .'
+                    def commitHash = env.GIT_COMMIT.take(7)
+                    sh "docker build -t nginx:$commitHash ."
                 }
             }
         }
-
-        stage('Remove Older Docker Containers') {
-            steps {
-                script {
-                    sh 'docker service rm nginx:$BUILD_NUMBER || true'
-                }
-            }
-        }
-
         stage('Deploy New Docker Container') {
             steps {
                 script {
-                    sh 'docker service create --name nginx-service-new-$BUILD_NUMBER --replicas 2 nginx:latest'
+                    def commitHash = env.GIT_COMMIT.take(7)
+                    sh "docker service create --name nginx-service-new-$commitHash --replicas 2 nginx:latest"
                 }
             }
         }
