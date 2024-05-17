@@ -4,7 +4,8 @@ pipeline {
     options {
         timeout(time: 5, unit: 'MINUTES') // Timeout for the entire pipeline run
     }
-stages {
+    
+    stages {
         stage('Preparation') {
             steps {
                 script {
@@ -13,16 +14,16 @@ stages {
                 }
             }
         }
-       
-    stages {
+        
         stage('Remove Existing Docker Containers and Images') {
             steps {
                 script {
-                    sh "docker service rm nginx-service-new-${commitHash} || true"
-                   sh 'docker rmi $(docker images -q --filter reference=nginx) --force || true'
+                    sh "docker service rm nginx-service-new-${env.COMMIT_HASH} || true"
+                    sh 'docker rmi $(docker images -q --filter reference=nginx) --force || true'
                 }
             }
         }
+        
         stage('Build Docker Image') {
             steps {
                 script {
@@ -31,6 +32,7 @@ stages {
                 }
             }
         }
+        
         stage('Deploy New Docker Container') {
             steps {
                 script {
