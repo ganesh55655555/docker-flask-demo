@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     options {
-        timeout(time: 2, unit: 'MINUTES') // Timeout for the entire pipeline run
+        timeout(time: 4, unit: 'MINUTES') // Timeout for the entire pipeline run
     }
 
     stages {
