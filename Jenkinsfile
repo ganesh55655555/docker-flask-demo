@@ -9,8 +9,8 @@ pipeline {
         stage('Remove Existing Docker Containers and Images') {
             steps {
                 script {
-                    sh 'docker service rm nginx-service-new-* || true'
-                    sh 'docker rmi $(docker images -q nginx -f) || true'
+                    sh 'docker service rm nginx-service-new- || true'
+                  docker rmi $(docker images -q --filter "reference=nginx") || true
                 }
             }
         }
