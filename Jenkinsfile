@@ -45,3 +45,4 @@ stages {
         success {
             emailext body: 'FROM JENKINS', subject: 'YOUR JENKINS PIPELINE IS READY', to: 'uganesh43@gmail.com'
         }
+    }
