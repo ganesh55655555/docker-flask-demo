@@ -18,7 +18,7 @@ pipeline {
         stage('Remove Existing Docker Containers and Images') {
             steps {
                 script {
-                    sh "docker service rm nginx-service-new-* || true"
+                    sh "docker service rm nginx-service-new-${env.COMMIT_HASH} || true"
                     sh 'docker rmi $(docker images -q --filter reference=nginx) --force || true'
                 }
             }
