@@ -9,7 +9,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    sh "docker build -t nodejs5 ."
+                    sh "docker build -t nodejs6 ."
                 }
             }
         }
@@ -18,7 +18,7 @@ pipeline {
             steps {
                 script {
                     // Run Docker container
-                    sh "docker run -d -p 3000:3000 nodejs5"
+                    sh "docker run -d -p 3000:3000 nodejs6"
                 }
             }
         }
