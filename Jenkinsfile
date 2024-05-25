@@ -13,8 +13,8 @@ pipeline {
                 }
             }
         }
-    }
-      stage('Run Docker Container') {
+        
+        stage('Run Docker Container') {
             steps {
                 script {
                     // Run Docker container
@@ -23,3 +23,4 @@ pipeline {
             }
         }
     }
+}
