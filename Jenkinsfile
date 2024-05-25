@@ -5,43 +5,15 @@ pipeline {
         timeout(time: 5, unit: 'MINUTES') // Timeout for the entire pipeline run
     }
     
-    stages {
-        stage('Preparation') {
-            steps {
-                script {
-                    def commitHash = env.GIT_COMMIT.take(7)
-                    env.COMMIT_HASH = commitHash
-                }
-            }
-        }
-        
-        stage('Remove Existing Docker Containers and Images') {
-            steps {
-                script {
-                   sh  'docker service rm $(docker service ls -q)'
-                    sh 'docker rmi $(docker images -q --filter reference=nginx) --force || true'
-                }
-            }
-        }
         
         stage('Build Docker Image') {
             steps {
                 script {
-                    def commitHash = env.COMMIT_HASH
-                    sh "docker build -t nginx:${commitHash} ."
+                    sh "docker build -t nodejs ."
                 }
             }
         }
         
-        stage('Deploy New Docker Container') {
-            steps {
-                script {
-                    def commitHash = env.COMMIT_HASH
-                    sh "docker service create --name nginx-service-new-${commitHash} --replicas 2 nginx:latest"
-                }
-            }
-        }
-    }
     
     post {
         success {
