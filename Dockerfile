@@ -3,7 +3,7 @@ FROM node:14
 
 # Set the working directory in the container
 WORKDIR /usr/src/app
-COPY package.json ./
+COPY package.json .
 
 # Install dependencies
 RUN npm install
