@@ -9,7 +9,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    sh "docker build -t nodejs ."
+                    sh "docker build -t nodejs5 ."
                 }
             }
         }
